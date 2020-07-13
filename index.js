@@ -11,7 +11,7 @@ let jsonResponse;
 
 setInterval(async function() {
     jsonResponse = await getJSON()
-}, 0.5 * 60 * 1000)
+}, 5 * 60 * 1000)
 
 setInterval(async function() {
     getLatestXML()
@@ -21,7 +21,13 @@ app.use(morgan('tiny'));
 app.use(helmet());
 
 app.get('/getRate', (req, res) => {
-    res.json(jsonResponse);
+    if (jsonResponse) {
+        res.json(jsonResponse);
+
+    } else {
+        res.json({ status: 'not ready' })
+    }
+
 })
 
 
