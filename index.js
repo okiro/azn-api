@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 
-const { getLatestXML, getJSON } = require('./modules/getRate')
+const { getLatestXML, getJSONFile } = require('./modules/getRate')
 
 const app = express();
 const PORT = process.env.PORT || 5500
@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5500
 let jsonResponse;
 
 setInterval(async function() {
-    jsonResponse = await getJSON()
+    jsonResponse = await getJSONFile()
 }, 5 * 60 * 1000)
 
 setInterval(async function() {

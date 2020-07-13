@@ -5,7 +5,7 @@ var he = require('he');
 const fs = require('fs');
 
 module.exports.getLatestXML = getLatestXML;
-module.exports.getJSON = getJSON;
+module.exports.getJSONFile = getJSONFile;
 
 async function getLatestLink() {
     const browser = await puppeteer.launch();
@@ -29,7 +29,7 @@ async function getLatestXML() {
     }
 }
 
-function getJSON() {
+function getJSONFile() {
     return new Promise((resolve, reject) => {
         fs.readFile('./json/latestRates.json', 'utf-8', (err, data) => {
             if (err) {
@@ -68,10 +68,25 @@ function xmlParser(xmlData) {
 }
 
 function writeLatestJSONFile(jsonObj) {
-    fs.writeFile('./json/latestRates.json', JSON.stringify(jsonObj), (err) => {
+
+    let newJson = {};
+    newJson.date = jsonObj.ValCurs.Date
+    newJson.rates = {};
+    newJson.rates.commodities = []
+    newJson.rates.currencies = []
+
+    jsonObj.ValCurs.ValType[0].Valute.map(el => {
+        newJson.rates.commodities.push({ name: el.Code, value: el.Value })
+    })
+
+    jsonObj.ValCurs.ValType[1].Valute.map(el => {
+        newJson.rates.currencies.push({ name: el.Code, facevalue: el.Nominal, value: el.Value })
+    })
+
+    fs.writeFile('./json/latestRates.json', JSON.stringify(newJson), (err) => {
         if (err) {
             throw err;
         }
-        console.log("JSON data is saved.");
+        console.log("JSON data is saved." + new Date());
     })
 }
