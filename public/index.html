@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZN currency JSON API | Azerbaijan manat JSON API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"> AZN.tools</div>
+            <div class="links">
+                <a href="#">Uptime</a> |
+                <a href="https://www.cbar.az/currency/rates?language=en" target="_blank">Data Source</a>
+            </div>
+        </header>
+        <main>
+            <h1>AZN exchange rates API</h1>
+            <h3>in JSON format</h3>
+            <h4>Rates are updated regularly from Central Bank of Azerbaijan.</h4>
+            <br>
+            <h4>Usage</h4>
+            <h5>To get latest rates use method below:</h5>
+            <div class="shell">
+                <pre>
+<span class="method">GET</span>  <span class="keyword">http://api.azn.tools/latest</span>
+                </pre>
+            </div>
+            <br>
+            <h5>Result will be in JSON format</h5>
+            <div class="shell">
+                <pre>
+{
+    <span class="keyword">"date"</span>: <span class="string" id="date">"01.01.2020"</span>,
+    <span class="keyword">"rates"</span>: {
+        <span class="keyword">"commodities"</span>: [
+            {
+                <span class="keyword">"name"</span>: <span class="string">"XAU"</span>,
+                <span class="keyword">"value"</span>: <span class="value" id="xauValue"></span>
+            }
+            ...
+        ],
+        <span class="keyword">"currencies"</span>: [
+            {
+                <span class="keyword">"name"</span>: <span class="string">"USD"</span>,
+                <span class="keyword">"facevalue"</span>: <span class="value">1</span>,
+                <span class="keyword">"value"</span>: <span class="value" id="usdValue"></span>
+            },
+            {
+                <span class="keyword">"name"</span>: <span class="string">"EUR"</span>,
+                <span class="keyword">"facevalue"</span>: <span class="value">1</span>,
+                <span class="keyword">"value"</span>: <span class="value" id="eurValue"></span>
+            }
+            ...
+        ]
+    }
+}
+            </pre>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

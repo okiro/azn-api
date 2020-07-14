@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&display=swap');
+
+/* https://coolors.co/fffcf2-ccc5b9-403d39-252422-eb5e28 */
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+:root {
+    --header-height: 60px;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #fffcf2;
+}
+
+header {
+    position: -webkit-sticky;
+    position: sticky;
+    color: #fffcf2;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: #403d39fd;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 1;
+}
+
+header a {
+    font-size: small;
+    color: #fffcf2;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: #eb5e28;
+}
+
+main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 600px;
+    margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 20px;
+    color: #403d39
+}
+
+h1 {
+    color: #eb5e28
+}
+
+h4,
+h5 {
+    align-self: flex-start;
+    margin-left: 50px;
+}
+
+.shell {
+    background-color: #252422;
+    color: #fff;
+    font-size: small;
+    padding: 20px 20px 0 50px;
+    min-width: 500px;
+    border-radius: 10px;
+    margin: 0 0 10px 0;
+}
+
+.keyword {
+    color: rgb(156, 220, 254);
+}
+
+.string {
+    color: rgb(206, 145, 120);
+}
+
+.value {
+    color: rgb(181, 206, 168)
+}
+
+.method {
+    color: rgb(188, 128, 183)
+}
+
+@media (max-width: 568px) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 5px;
+        font-size: smaller;
+    }
+    main {
+        width: 100%;
+        padding: 2px;
+    }
+    .shell {
+        min-width: 100%;
+        font-size: small;
+    }
+    h4,
+    h5 {
+        align-self: flex-start;
+        margin-left: 5px;
+    }
+}

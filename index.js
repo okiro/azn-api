@@ -5,6 +5,7 @@ const cors = require('cors');
 const rateLimit = require("express-rate-limit")
 const slowDown = require("express-slow-down");
 
+
 const { getLatestXML, getJSONFile } = require('./modules/getRate')
 
 const app = express();
@@ -26,7 +27,6 @@ let jsonResponse;
 (async function() {
     jsonResponse = await getJSONFile()
 })()
-getLatestXML()
 
 setInterval(async function() {
     jsonResponse = await getJSONFile()
@@ -38,16 +38,21 @@ setInterval(async function() {
 
 app.use(morgan('tiny'));
 app.use(helmet());
+app.use(express.static('public'));
 
 app.get('/latest', cors(), limiter, speedLimiter, (req, res) => {
     if (jsonResponse) {
         res.json(jsonResponse);
-
     } else {
         res.json({ status: 'not ready' })
     }
 })
 
+app.use('/', express.static('public'));
+
+app.use(function(req, res) {
+    res.status(404).send('Sorry cant find that!');
+});
 
 app.listen(PORT, () => {
     console.log(`Server is listening at: ${PORT}`)
