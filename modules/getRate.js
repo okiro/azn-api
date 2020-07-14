@@ -40,6 +40,7 @@ function getJSONFile() {
                 throw err;
             }
             const json = JSON.parse(data.toString());
+            console.log('JSON file was read.')
             resolve(json);
         });
     })

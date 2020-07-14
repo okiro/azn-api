@@ -21,8 +21,11 @@ const speedLimiter = slowDown({
     delayMs: 300
 });
 
-let jsonResponse
-jsonResponse = await getJSONFile()
+let jsonResponse;
+
+(async function() {
+    jsonResponse = await getJSONFile()
+})()
 getLatestXML()
 
 setInterval(async function() {
