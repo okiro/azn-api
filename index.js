@@ -21,7 +21,9 @@ const speedLimiter = slowDown({
     delayMs: 300
 });
 
-let jsonResponse;
+let jsonResponse
+jsonResponse = await getJSONFile()
+getLatestXML()
 
 setInterval(async function() {
     jsonResponse = await getJSONFile()
@@ -34,7 +36,7 @@ setInterval(async function() {
 app.use(morgan('tiny'));
 app.use(helmet());
 
-app.get('/getRate', cors(), limiter, speedLimiter, (req, res) => {
+app.get('/latest', cors(), limiter, speedLimiter, (req, res) => {
     if (jsonResponse) {
         res.json(jsonResponse);
 
@@ -45,5 +47,5 @@ app.get('/getRate', cors(), limiter, speedLimiter, (req, res) => {
 
 
 app.listen(PORT, () => {
-    console.log(`(server is listening at port:${PORT}`)
+    console.log(`Server is listening at: ${PORT}`)
 })
