@@ -8,14 +8,18 @@ module.exports.getLatestXML = getLatestXML;
 module.exports.getJSONFile = getJSONFile;
 
 async function getLatestLink() {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://www.cbar.az/currency/rates');
-    await page.waitForXPath('//*[@id="mm-0"]/div[1]/div[3]/div/div/div/div[2]/a');
-    const elementHandle = await page.$x('//*[@id="mm-0"]/div[1]/div[3]/div/div/div/div[2]/a');
-    const text = await page.evaluate(elementHandle => elementHandle.textContent, elementHandle[0]);
-    await browser.close();
-    return text;
+    try {
+        const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto('https://www.cbar.az/currency/rates');
+        await page.waitForXPath('//*[@id="mm-0"]/div[1]/div[3]/div/div/div/div[2]/a');
+        const elementHandle = await page.$x('//*[@id="mm-0"]/div[1]/div[3]/div/div/div/div[2]/a');
+        const text = await page.evaluate(elementHandle => elementHandle.textContent, elementHandle[0]);
+        await browser.close();
+        return text;
+    } catch (error) {
+        console.log(`Some error ocured during puppeteer session: ${error}`)
+    }
 };
 
 async function getLatestXML() {
@@ -25,7 +29,7 @@ async function getLatestXML() {
         const jsonObj = xmlParser(response.data);
         writeLatestJSONFile(jsonObj);
     } catch (error) {
-        console.error(error);
+        console.error(`Error during xmlParsing: ${error}`);
     }
 }
 
